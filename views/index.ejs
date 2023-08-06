@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/069ddac36c.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/category.css">
+    <title>Home</title>
+</head>
+<body>
+    <!-- Header -->
+    <%- include("partials/header.ejs") %>
+
+    <!-- Category Section -->
+    <section class="flex-row categories-panel" id="categoriesPanel">
+
+        <input type="radio" id="dailies" name="category" value="dailies" checked="true"></input>
+        <label for="dailies" class="category-label active font">Dailies</label>
+    
+        <input type="radio" id="work" name="category" value="work"></input>
+        <label for="work" class="category-label font">Work</label>
+    
+        <button id="category-add" class="add-icon font" title="Add Category" onclick="inputCategory()"><i class="icon fa-solid fa-plus"></i></button>
+    </section>
+
+
+    <br>
+    <br>
+    <br>
+
+    <!-- <form class="" action="/add" method="POST">
+
+        <input class="" type="text" name="todo" id="todo" autocomplete="off" placeholder="What to do?">
+        <input class="" type="number" name="time" id="time" autocomplete="off" placeholder="Time in minutes">
+
+        <button id="" class="button todo-submit" type="submit" aria-label="add">
+            <i class='icon fa-solid fa-check'></i>
+        </button>
+    </form> -->
+
+
+
+    <main class="main">
+        <div class="card">
+            <% if(locals.todoList) { %>
+                <% for (const [key, value] of Object.entries(todoList)) { %>
+                    <p><%= value[0] %></p><p><%= value[1] %></p></br>
+                    
+                <% } %>
+            <% } else { %>
+            <p>
+                <span>
+                    <svg class="icon"><use xlink:href="#icon-add" /></svg>
+                </span>
+            </p>
+            <p>
+                <span>
+                    <svg class="icon"><use xlink:href="#icon-add" /></svg>
+                </span>
+            </p>
+            <% } %>
+        </div>
+    </main>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="scripts/category.js"></script>
+</body>
+</html>
