@@ -15,13 +15,29 @@
     <!-- Category Section -->
     <section class="flex-row categories-panel" id="categoriesPanel">
 
-        <input type="radio" id="dailies" name="category" value="dailies" checked="true"></input>
-        <label for="dailies" class="category-label active font">Dailies</label>
-    
-        <input type="radio" id="work" name="category" value="work"></input>
-        <label for="work" class="category-label font">Work</label>
+        <div class="default-category">
+            <input type="radio" id="dailies" name="category" value="dailies" checked="true"></input>
+            <label for="dailies" class="category-label active font">Dailies</label>
+        </div>
+        
+        <div class="default-category">
+            <input type="radio" id="work" name="category" value="work"></input>
+            <label for="work" class="category-label font">Work</label>
+        </div>
     
         <button id="category-add" class="add-icon font" title="Add Category" onclick="inputCategory()"><i class="icon fa-solid fa-plus"></i></button>
+    </section>
+    
+    <!-- Task Section -->
+    <section class="flex-row task-panel">
+        <div class="dailies" id="forDailies">
+            <h1>Kiku</h1>
+        </div>
+    
+        <div class="work" id="forWork">
+            <h1>Kikli</h1>
+        </div>
+    
     </section>
 
 

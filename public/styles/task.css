@@ -1,0 +1,24 @@
+/* Task Section */
+.task-panel {
+    gap: 3rem;
+}
+
+.dailies {
+    display: flex;
+}
+
+.work {
+    display: flex;
+}
+
+.category-3 {
+    display: flex;
+}
+
+.category-4 {
+    display: flex;
+}
+
+.hide {
+    display: none;
+}
