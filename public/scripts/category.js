@@ -90,10 +90,11 @@ function removeAdded() {
     const addButton = "<button id='category-add' class='add-icon font' title='Add Category' onclick='inputCategory()'><i class='icon fa-solid fa-plus'></i></button>";
     let categoryCount = $('.categories-panel div').length - 1;
     let blockToRemove = $('#removeCategory').parent().attr('id');
-
-    $(`#${blockToRemove}`).remove();
-    console.log(blockToRemove);
-    $(`.task-panel div.${blockToRemove}`).remove();
+    
+    if(categoryCount+1 > 2) {
+        $(`#${blockToRemove}`).remove();
+        $(`.task-panel div.${blockToRemove}`).remove();
+    }
 
     if(categoryCount >= 2) {
         $('.categories-panel').append(addButton);
