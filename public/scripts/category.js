@@ -41,8 +41,10 @@ function inputCategory() {
     }
 }
 function push() {
-    
-    let categoryTitle = $('#categoryTitle').val().trim().toString();
+    const reg = new RegExp('\/([a-zA-Z0-9]+)\.', 'g');
+    let categoryTitle = $('#categoryTitle').val().trim().toString().replace(/[^a-z0-9 \b]/gi, '');
+
+    // categoryTitle = reg.test(categoryTitle);
 
     let storeID = camelCase(categoryTitle);
 

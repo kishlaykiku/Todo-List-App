@@ -18,7 +18,7 @@ input[type='radio'] {
 }
 .category-label:hover {
     color: black;
-    box-shadow: inset 12rem 0 gold;
+    box-shadow: inset 17rem 0 gold;
     border-left: 0.3rem solid gold;
     transition-duration: 300ms;
 }
@@ -100,13 +100,13 @@ input[type='text']:focus.category-input {
     transition: width 0.2s cubic-bezier(0.42, 0, 0.58, 1.00);
 }
 .active {
-    box-shadow: inset 12rem 0 gold;
+    box-shadow: inset 17rem 0 gold;
     border-radius: 1rem 1rem 0 1rem;
     transition-duration: 300ms;
     color: black;
 }
 .category-label:active {
-    box-shadow: inset 12rem 0 rgb(162, 138, 0);
+    box-shadow: inset 17rem 0 rgb(162, 138, 0);
     border-left: 0.3rem solid gold;
     border-radius: 1rem 1rem 0 1rem;
     color: black;
