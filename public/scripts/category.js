@@ -59,7 +59,7 @@ function push() {
 
     if(categoryTitle.length > 0 && categoryTitle.length < 13) {
         let newCategory = 
-            `<div class='extra-category' id='classCategory'>` + 
+            `<div class='extra-category' id='${storeID}'>` + 
             `<input type='radio' id='${storeID}' name='category' value='${categoryTitle.split(" ").join("-").toLowerCase()}'></input>` + 
             `<label for='${storeID}' class="category-label font">${categoryTitle}</label>` +
             `<button class='remove-category' id='removeCategory' onclick='removeAdded()'><i class='icon fa-solid fa-xmark'></i></button>` + 
@@ -92,6 +92,8 @@ function removeAdded() {
     let blockToRemove = $('#removeCategory').parent().attr('id');
 
     $(`#${blockToRemove}`).remove();
+    console.log(blockToRemove);
+    $(`.task-panel div.${blockToRemove}`).remove();
 
     if(categoryCount >= 2) {
         $('.categories-panel').append(addButton);
