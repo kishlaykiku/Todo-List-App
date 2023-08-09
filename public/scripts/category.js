@@ -64,6 +64,7 @@ function push() {
         $('.categories-panel .temp-input-box').remove();
         $('.categories-panel').append(newCategory);
         addTaskCategory();
+        makeNewActive(storeID);
 
         const addButton = "<button id='category-add' class='add-icon font' title='Add Category' onclick='inputCategory()'><i class='icon fa-solid fa-plus'></i></button>";
         let categoryCount = $('.categories-panel').children('div').length;
@@ -105,6 +106,9 @@ function removeAdded(blockToRemove) {
     if (categoryCount == 2) {
         $('#category-add').remove();
     }
+
+    makeNewActive($('.categories-panel div:last input[type=radio]').attr('id'));
+    
 }
 
 $(document).on('keyup', '#categoryTitle', function (event) {
@@ -116,6 +120,14 @@ $(document).on('keyup', '#categoryTitle', function (event) {
     }
 });
 
+function makeNewActive(storeID) {
+    $('.categories-panel div label').removeClass('active');
+    $('.categories-panel div input[type="radio"]').prop('checked', false);
+
+    $(`.categories-panel div input[id='${storeID}'`).prop('checked', true);
+    $(`.categories-panel div label[for='${storeID}']`).addClass('active');
+    checkActive();
+}
 $(document).on('click', '.categories-panel div label', function(e) {
     if($(`.categories-panel div label[for='${this.htmlFor}']`).hasClass('active') == false) {
         $('.categories-panel div label').removeClass('active');
