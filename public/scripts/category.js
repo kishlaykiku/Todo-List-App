@@ -106,9 +106,14 @@ function removeAdded(blockToRemove) {
     if (categoryCount == 2) {
         $('#category-add').remove();
     }
-
-    makeNewActive($('.categories-panel div:last input[type=radio]').attr('id'));
+    console.log(categoryCount);
     
+    if(categoryCount == 2) {
+        makeNewActive($('.categories-panel div:first input[type=radio]').attr('id'));
+    }
+    else {
+        makeNewActive($('.categories-panel div:last input[type=radio]').attr('id'));
+    }
 }
 
 $(document).on('keyup', '#categoryTitle', function (event) {
