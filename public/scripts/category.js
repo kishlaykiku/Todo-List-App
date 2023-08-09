@@ -106,8 +106,7 @@ function removeAdded(blockToRemove) {
     if (categoryCount == 2) {
         $('#category-add').remove();
     }
-    console.log(categoryCount);
-    
+
     if(categoryCount == 2) {
         makeNewActive($('.categories-panel div:first input[type=radio]').attr('id'));
     }
