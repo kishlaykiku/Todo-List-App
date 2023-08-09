@@ -2,18 +2,18 @@
 
 // To check whichcategory is active
 function checkActive() {
-    let classID = $('input[type="radio"]:checked').attr('id');
+    let classID = $('.categories-panel div input[type="radio"]:checked').attr('id');
 
-    if($('.task-panel').children().hasClass(`${classID}`)) {
-        $('.task-panel').children().addClass('hide');
-        $(`.${classID}`).removeClass('hide');
+    if($('.task-panel').children('div').hasClass(`${classID}`)) {
+        $('.task-panel').children('div').addClass('hide');
+        $(`.task-panel div.${classID}`).removeClass('hide');
     }
 }
 
 // To add new Task category
 function addTaskCategory() {
-    let categoryNumber = $('.task-panel div').length;
-    let categoryCount = $('.categories-panel div').length;
+    let categoryNumber = $('.task-panel').children('div').length;
+    let categoryCount = $('.categories-panel').children('div').length;
     let categoryTitle = $('.categories-panel div:last input[type=radio]').attr('id');
 
     let newTaskCategory = 
@@ -27,7 +27,7 @@ function addTaskCategory() {
 
     categoryNumber = $('.task-panel div').length;
     if(categoryNumber != categoryCount) {
-        $(`.task-panel .category-${categoryNumber}`).remove();
+        $(`.task-panel div.category-${categoryNumber}`).remove();
     }
     checkActive();
 }

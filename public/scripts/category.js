@@ -16,8 +16,8 @@ function camelCase(str) {
 
 
 function inputCategory() {
-    let categoryCount = $('.categories-panel div').length;
-    let mainCount = $('.categories-panel main').length;
+    let categoryCount = $('.categories-panel').children('div').length;
+    let mainCount = $('.categories-panel').children('main').length;
 
     if(categoryCount != 4 && mainCount == 0) {
         $("#category-add").remove();
@@ -33,7 +33,7 @@ function inputCategory() {
             "</main>";
 
         $('.categories-panel').append(inputNewCategory);
-        $('.temp-input-box').animate({opacity: '1'});
+        $('.categories-panel .temp-input-box').animate({opacity: '1'});
         keyInputs();
     }
     else {
@@ -41,21 +41,18 @@ function inputCategory() {
     }
 }
 function push() {
-    const reg = new RegExp('\/([a-zA-Z0-9]+)\.', 'g');
     let categoryTitle = $('#categoryTitle').val().trim().toString().replace(/[^a-z0-9 \b]/gi, '');
-
-    // categoryTitle = reg.test(categoryTitle);
 
     let storeID = camelCase(categoryTitle);
 
-    $('input[type="radio"]').each(function () {
+    $('.categories-panel div input[type="radio"]').each(function () {
         if((storeID) == $(this).attr('id'))
         {
             storeID = storeID+1;
         }
     });
 
-    if(storeID == $('input[type="radio"]').attr('id')) {
+    if(storeID == $('.categories-panel div input[type="radio"]').attr('id')) {
         storeID = storeID+1;
     }
 
@@ -67,13 +64,13 @@ function push() {
             `<button class='remove-category' id='removeCategory' onclick='removeAdded()'><i class='icon fa-solid fa-xmark'></i></button>` + 
             `</div>`;
 
-        $('.temp-input-box').remove();
+        $('.categories-panel .temp-input-box').remove();
         $('.categories-panel').append(newCategory);
         addTaskCategory();
         selectedCategory();
 
         const addButton = "<button id='category-add' class='add-icon font' title='Add Category' onclick='inputCategory()'><i class='icon fa-solid fa-plus'></i></button>";
-        let categoryCount = $('.categories-panel div').length;
+        let categoryCount = $('.categories-panel').children('div').length;
         if(categoryCount != 4) {
             $('.categories-panel').append(addButton);
         }
@@ -81,20 +78,24 @@ function push() {
 }
 function removeNew() {
     const addButton = "<button id='category-add' class='add-icon font' title='Add Category' onclick='inputCategory()'><i class='icon fa-solid fa-plus'></i></button>";
-    $('.temp-input-box').remove();
+    let categoryCount = $('.categories-panel').children('div').length;
+    let buttonCount = $('.categories-panel').children('button').length;
 
-    let buttonCount = $('.categories-panel button').length;
-    if(buttonCount == 0) {
+    $('.categories-panel .temp-input-box').remove();
+
+    if((categoryCount == 2 || categoryCount == 3) && buttonCount != 1) {
         $('.categories-panel').append(addButton);
     }
 }
 function removeAdded() {
     const addButton = "<button id='category-add' class='add-icon font' title='Add Category' onclick='inputCategory()'><i class='icon fa-solid fa-plus'></i></button>";
-    let categoryCount = $('.categories-panel div').length - 1;
+    let categoryCount = $('.categories-panel').children('div').length - 1;
     let blockToRemove = $('#removeCategory').parent().attr('id');
     
+    // console.log(categoryCount);
+
     if(categoryCount+1 > 2) {
-        $(`#${blockToRemove}`).remove();
+        $(`.categories-panel div#${blockToRemove}`).remove();
         $(`.task-panel div.${blockToRemove}`).remove();
     }
 
@@ -118,13 +119,13 @@ function keyInputs() {
     });
 }
 function selectedCategory() {
-    $('label').on('click', function(e) {
-        if($(`label[for='${this.htmlFor}']`).hasClass('active') == false) {
-            $('label').removeClass('active');
-            $('input[type="radio"]').prop('checked', false);
+    $('.categories-panel div label').on('click', function(e) {
+        if($(`.categories-panel div label[for='${this.htmlFor}']`).hasClass('active') == false) {
+            $('.categories-panel div label').removeClass('active');
+            $('.categories-panel div input[type="radio"]').prop('checked', false);
 
-            $(`input[id='${this.htmlFor}'`).prop('checked', true);
-            $(`label[for='${this.htmlFor}']`).addClass('active');
+            $(`.categories-panel div input[id='${this.htmlFor}'`).prop('checked', true);
+            $(`.categories-panel div label[for='${this.htmlFor}']`).addClass('active');
             checkActive();
         }
     });
