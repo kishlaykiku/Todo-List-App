@@ -12,9 +12,6 @@ function camelCase(str) {
 
 // ---------------------------------- Category section
 // Store the add-icon button
-
-
-
 function inputCategory() {
     let categoryCount = $('.categories-panel').children('div').length;
     let mainCount = $('.categories-panel').children('main').length;
@@ -39,6 +36,7 @@ function inputCategory() {
         $('#category-add').remove();
     }
 }
+
 function push() {
     let categoryTitle = $('#categoryTitle').val().trim().toString().replace(/[^a-z0-9 \b]/gi, '');
 
@@ -74,6 +72,7 @@ function push() {
         }
     }
 }
+
 function removeNew() {
     const addButton = "<button id='category-add' class='add-icon font' title='Add Category' onclick='inputCategory()'><i class='icon fa-solid fa-plus'></i></button>";
     let categoryCount = $('.categories-panel').children('div').length;
@@ -85,7 +84,6 @@ function removeNew() {
         $('.categories-panel').append(addButton);
     }
 }
-
 
 $(document).on('click', '#removeCategory', function () {
     removeAdded($(this).parent().attr('id'));
