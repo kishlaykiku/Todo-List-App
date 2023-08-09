@@ -34,7 +34,6 @@ function inputCategory() {
 
         $('.categories-panel').append(inputNewCategory);
         $('.categories-panel .temp-input-box').animate({opacity: '1'});
-        keyInputs();
     }
     else {
         $('#category-add').remove();
@@ -61,13 +60,12 @@ function push() {
             `<div class='extra-category' id='${storeID}'>` + 
             `<input type='radio' id='${storeID}' name='category' value='${categoryTitle.split(" ").join("-").toLowerCase()}'></input>` + 
             `<label for='${storeID}' class="category-label font">${categoryTitle}</label>` +
-            `<button class='remove-category' id='removeCategory' onclick='removeAdded()'><i class='icon fa-solid fa-xmark'></i></button>` + 
+            `<button class='remove-category' id='removeCategory' onclick=''><i class='icon fa-solid fa-xmark'></i></button>` + 
             `</div>`;
 
         $('.categories-panel .temp-input-box').remove();
         $('.categories-panel').append(newCategory);
         addTaskCategory();
-        selectedCategory();
 
         const addButton = "<button id='category-add' class='add-icon font' title='Add Category' onclick='inputCategory()'><i class='icon fa-solid fa-plus'></i></button>";
         let categoryCount = $('.categories-panel').children('div').length;
@@ -87,12 +85,14 @@ function removeNew() {
         $('.categories-panel').append(addButton);
     }
 }
-function removeAdded() {
+
+
+$(document).on('click', '#removeCategory', function () {
+    removeAdded($(this).parent().attr('id'));
+});
+function removeAdded(blockToRemove) {
     const addButton = "<button id='category-add' class='add-icon font' title='Add Category' onclick='inputCategory()'><i class='icon fa-solid fa-plus'></i></button>";
     let categoryCount = $('.categories-panel').children('div').length - 1;
-    let blockToRemove = $('#removeCategory').parent().attr('id');
-    
-    // console.log(categoryCount);
 
     if(categoryCount+1 > 2) {
         $(`.categories-panel div#${blockToRemove}`).remove();
@@ -108,27 +108,24 @@ function removeAdded() {
         $('#category-add').remove();
     }
 }
-function keyInputs() {
-    $('#categoryTitle').on("keyup", function (event) {
-        if(event.key == "Enter") {
-            push();
-        }
-        if(event.key == "Escape") {
-            removeNew();
-        }
-    });
-}
-function selectedCategory() {
-    $('.categories-panel div label').on('click', function(e) {
-        if($(`.categories-panel div label[for='${this.htmlFor}']`).hasClass('active') == false) {
-            $('.categories-panel div label').removeClass('active');
-            $('.categories-panel div input[type="radio"]').prop('checked', false);
 
-            $(`.categories-panel div input[id='${this.htmlFor}'`).prop('checked', true);
-            $(`.categories-panel div label[for='${this.htmlFor}']`).addClass('active');
-            checkActive();
-        }
-    });
-}
-selectedCategory();
+$(document).on('keyup', '#categoryTitle', function (event) {
+    if(event.key == "Enter") {
+        push();
+    }
+    if(event.key == "Escape") {
+        removeNew();
+    }
+});
+
+$(document).on('click', '.categories-panel div label', function(e) {
+    if($(`.categories-panel div label[for='${this.htmlFor}']`).hasClass('active') == false) {
+        $('.categories-panel div label').removeClass('active');
+        $('.categories-panel div input[type="radio"]').prop('checked', false);
+
+        $(`.categories-panel div input[id='${this.htmlFor}'`).prop('checked', true);
+        $(`.categories-panel div label[for='${this.htmlFor}']`).addClass('active');
+        checkActive();
+    }
+});
 // ---------------------------------- Category section end
