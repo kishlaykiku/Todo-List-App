@@ -3,85 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/069ddac36c.js" crossorigin="anonymous"></script>
+
+    <!-- Customs CSS -->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/category.css">
     <link rel="stylesheet" href="styles/task.css">
+
     <title>Home</title>
 </head>
 <body>
-    <!-- Header -->
-    <%- include("partials/header.ejs") %>
 
-    <!-- Category Section -->
-    <section class="flex-row categories-panel" id="categoriesPanel">
+<!-- Header -->
+<%- include("partials/header.ejs") %>
 
-        <div class="default-category">
-            <input type="radio" id="dailies" name="category" value="dailies" checked="true"></input>
-            <label for="dailies" class="category-label active font">Dailies</label>
-        </div>
-        
-        <div class="default-category">
-            <input type="radio" id="work" name="category" value="work"></input>
-            <label for="work" class="category-label font">Work</label>
-        </div>
-    
-        <button id="category-add" class="add-icon font" title="Add Category" onclick="inputCategory()"><i class="icon fa-solid fa-plus"></i></button>
-    </section>
-    
-    <!-- Task Section -->
-    <section class="flex-row task-panel">
-        <div class="dailies" id="forDailies">
-            <h1>Kiku</h1>
-        </div>
-    
-        <div class="work" id="forWork">
-            <h1>Kikli</h1>
-        </div>
-    
-    </section>
+<!-- Category Section -->
+<section class="flex-row categories-panel" id="categoriesPanel">
+
+    <!-- Default categories (Dailies and Work) -->
+    <div class="default-category">
+        <input type="radio" id="dailies" name="category" value="dailies" checked="true"></input>
+        <label for="dailies" class="category-label active font">Dailies</label>
+    </div>
+    <div class="default-category">
+        <input type="radio" id="work" name="category" value="work"></input>
+        <label for="work" class="category-label font">Work</label>
+    </div>
+
+    <!-- Add New Category Button -->
+    <button id="category-add" class="add-icon font" title="Add Category" onclick="inputCategory()"><i class="icon fa-solid fa-plus"></i></button>
+</section>
 
 
-    <br>
-    <br>
-    <br>
+<!-- Task Section -->
+<section class="flex-row task-panel">
 
-    <!-- <form class="" action="/add" method="POST">
+    <!-- Default Task Sections (Dailies and Work) -->
+    <div class="dailies" id="forDailies">
+        <h1>Kiku</h1>
+    </div>
+    <div class="work" id="forWork">
+        <h1>Kikli</h1>
+    </div>
 
-        <input class="" type="text" name="todo" id="todo" autocomplete="off" placeholder="What to do?">
-        <input class="" type="number" name="time" id="time" autocomplete="off" placeholder="Time in minutes">
-
-        <button id="" class="button todo-submit" type="submit" aria-label="add">
-            <i class='icon fa-solid fa-check'></i>
-        </button>
-    </form> -->
-
+</section>
 
 
-    <main class="main">
-        <div class="card">
-            <% if(locals.todoList) { %>
-                <% for (const [key, value] of Object.entries(todoList)) { %>
-                    <p><%= value[0] %></p><p><%= value[1] %></p></br>
-                    
-                <% } %>
-            <% } else { %>
-            <p>
-                <span>
-                    <svg class="icon"><use xlink:href="#icon-add" /></svg>
-                </span>
-            </p>
-            <p>
-                <span>
-                    <svg class="icon"><use xlink:href="#icon-add" /></svg>
-                </span>
-            </p>
+<br>
+<br>
+<br>
+
+<!-- <form class="" action="/add" method="POST">
+
+    <input class="" type="text" name="todo" id="todo" autocomplete="off" placeholder="What to do?">
+    <input class="" type="number" name="time" id="time" autocomplete="off" placeholder="Time in minutes">
+
+    <button id="" class="button todo-submit" type="submit" aria-label="add">
+        <i class='icon fa-solid fa-check'></i>
+    </button>
+</form> -->
+
+
+
+<main class="main">
+    <div class="card">
+        <% if(locals.todoList) { %>
+            <% for (const [key, value] of Object.entries(todoList)) { %>
+                <p><%= value[0] %></p><p><%= value[1] %></p></br>
+                
             <% } %>
-        </div>
-    </main>
-    
+        <% } else { %>
+        <p>
+            <span>
+                <svg class="icon"><use xlink:href="#icon-add" /></svg>
+            </span>
+        </p>
+        <p>
+            <span>
+                <svg class="icon"><use xlink:href="#icon-add" /></svg>
+            </span>
+        </p>
+        <% } %>
+    </div>
+</main>
+   
+
+<!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<!-- Custom Script (Category) -->
 <script src="scripts/category.js"></script>
+<!-- Custom Script (Task) -->
 <script src="scripts/task.js"></script>
 </body>
 </html>
