@@ -152,8 +152,6 @@ function removeAdded(blockToRemove) {
         $('#category-add').remove();
     }
 
-    console.log(categoryCount);
-    console.log($('.categories-panel div input[id="dailies"]').prop('checked'));
     // If all the categories are deleted then make the first category selected by default
     if(categoryCount == 2) {
         makeNewActive($('.categories-panel div:first input[type=radio]').attr('id'));
