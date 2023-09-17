@@ -19,7 +19,7 @@
 <!-- Header -->
 <%- include("partials/header.ejs") %>
 
-<!-- Category Section -->
+<!-- Category -->
 <section class="flex-row categories-panel" id="categoriesPanel">
 
     <!-- Default categories (Dailies and Work) -->
@@ -32,8 +32,24 @@
         <label for="work" class="category-label font">Work</label>
     </div>
 
+    <% if(locals.categoryList) { %>
+        <% for (const [key, value] of Object.entries(categoryList)) { %>
+            <div class="extra-category" id="<%= key %>">
+                <input type="radio" id="<%= key %>" name="category" value="<%= key %>">
+                <label for="<%= key %>" class="category-label font"><%= value[0] %></label>
+                <form method='POST' id='newAddedCategoryForm'>
+                    <button class="remove-category" id="removeCategory" onclick="">
+                        <i class="icon fa-solid fa-xmark"></i>
+                    </button>
+                </form>
+            </div>
+        <% } %>
+    <% } %>
+
     <!-- Add New Category Button -->
-    <button id="category-add" class="add-icon font" title="Add Category" onclick="inputCategory()"><i class="icon fa-solid fa-plus"></i></button>
+    <% if(Object.keys(categoryList).length != 2) { %>
+        <button id="category-add" class="add-icon font" title="Add Category" onclick="inputCategory()"><i class="icon fa-solid fa-plus"></i></button>
+    <% } %>
 </section>
 
 
@@ -42,59 +58,81 @@
 
     <!-- Default Task Sections (Dailies and Work) -->
     <div class="dailies" id="forDailies">
-        <h1>Kiku</h1>
+        <% if(locals.todoList) { %>
+            <% for (const [key, value] of Object.entries(todoList)) { %>
+                <% if(value[2] == 'dailies') { %>
+                <p><%= value[0] %></p><p><%= value[1] %></p>
+                <% } %>
+            <% } %>
+            <form class="" action="/add" method="POST">
+
+                <input class="" type="text" name="todo" id="todo" autocomplete="off" placeholder="What to do?">
+                <input class="" type="number" name="time" id="time" autocomplete="off" placeholder="Time in minutes">
+                <input class="" type="hidden" name="category" value="dailies">
+
+                <button id="" class="button todo-submit" type="submit" aria-label="add">
+                    <i class='icon fa-solid fa-check'></i>
+                </button>
+            </form>
+        <% } else { %>
+            <form class="" action="/add" method="POST">
+
+                <input class="" type="text" name="todo" id="todo" autocomplete="off" placeholder="What to do?">
+                <input class="" type="number" name="time" id="time" autocomplete="off" placeholder="Time in minutes">
+                <input class="" type="hidden" name="category" value="dailies">
+
+                <button id="" class="button todo-submit" type="submit" aria-label="add">
+                    <i class='icon fa-solid fa-check'></i>
+                </button>
+            </form>
+        <% } %>
     </div>
     <div class="work" id="forWork">
-        <h1>Kikli</h1>
+        <% if(locals.todoList) { %>
+            <% for (const [key, value] of Object.entries(todoList)) { %>
+                <% if(value[2] == 'work') { %>
+                <p><%= value[0] %></p><p><%= value[1] %></p>
+                <% } %>
+            <% } %>
+            <form class="" action="/add" method="POST">
+
+                <input class="" type="text" name="todo" id="todo" autocomplete="off" placeholder="What to do?">
+                <input class="" type="number" name="time" id="time" autocomplete="off" placeholder="Time in minutes">
+                <input class="" type="hidden" name="category" value="work">
+
+                <button id="" class="button todo-submit" type="submit" aria-label="add">
+                    <i class='icon fa-solid fa-check'></i>
+                </button>
+            </form>
+        <% } else { %>
+            <form class="" action="/add" method="POST">
+
+                <input class="" type="text" name="todo" id="todo" autocomplete="off" placeholder="What to do?">
+                <input class="" type="number" name="time" id="time" autocomplete="off" placeholder="Time in minutes">
+                <input class="" type="hidden" name="category" value="work">
+
+                <button id="" class="button todo-submit" type="submit" aria-label="add">
+                    <i class='icon fa-solid fa-check'></i>
+                </button>
+            </form>
+        <% } %>
     </div>
 
+    <% if(locals.categoryList) { %>
+        <% let count=3;for (const [key, value] of Object.entries(categoryList)) { %>
+            <div class="category-<%- count++ %> <%= key %>">
+                <h1>Kiklu</h1>
+            </div>
+        <% } %>
+    <% } %>
 </section>
 
 
-<br>
-<br>
-<br>
-
-<!-- <form class="" action="/add" method="POST">
-
-    <input class="" type="text" name="todo" id="todo" autocomplete="off" placeholder="What to do?">
-    <input class="" type="number" name="time" id="time" autocomplete="off" placeholder="Time in minutes">
-
-    <button id="" class="button todo-submit" type="submit" aria-label="add">
-        <i class='icon fa-solid fa-check'></i>
-    </button>
-</form> -->
-
-
-
-<main class="main">
-    <div class="card">
-        <% if(locals.todoList) { %>
-            <% for (const [key, value] of Object.entries(todoList)) { %>
-                <p><%= value[0] %></p><p><%= value[1] %></p></br>
-                
-            <% } %>
-        <% } else { %>
-        <p>
-            <span>
-                <svg class="icon"><use xlink:href="#icon-add" /></svg>
-            </span>
-        </p>
-        <p>
-            <span>
-                <svg class="icon"><use xlink:href="#icon-add" /></svg>
-            </span>
-        </p>
-        <% } %>
-    </div>
-</main>
-   
 
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-<!-- Custom Script (Category) -->
-<script src="scripts/category.js"></script>
 <!-- Custom Script (Task) -->
+<script src="scripts/category.js"></script>
 <script src="scripts/task.js"></script>
 </body>
 </html>

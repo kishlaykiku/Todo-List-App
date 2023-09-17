@@ -16,7 +16,7 @@ function camelCase(str) {
     return arr[0] + temp;
 }
 
-
+    
 // ---------------------------------- Category section ----------------------------------
 
 // When add-icon button is clicked, call this function to display temporary input field for new category
@@ -35,12 +35,14 @@ function inputCategory() {
         // Create a new temporary input field which will hold the new category title
         let inputNewCategory = 
             "<main class='flex-row temp-input-box'>" + 
+            "<form method='POST' id='newCategoryForm'>" + 
             "<div style='position: relative; width: 50%'>" + 
-            "<input type='text' class='font category-input' id='categoryTitle' placeholder='Add Category' maxlength=12></input>" + 
+            "<input type='text' class='font category-input' id='categoryTitle' name='category' placeholder='Add Category' maxlength=12></input>" + 
             "<span class='input-bar'></span>" + 
             "</div>" + 
-            "<button class='category-push' id='category-submit' onclick='push()'><i class='icon fa-solid fa-check'></i></button>" + 
-            "<button class='category-cancel' id='category-submit' onclick='removeNew()'><i class='icon fa-solid fa-xmark'></i></button>" + 
+            "<button class='category-push' type='submit' id='category-submit' onclick='push()'><i class='icon fa-solid fa-check'></i></button>" + 
+            "<button class='category-cancel' type='button' id='category-submit' onclick='removeNew()'><i class='icon fa-solid fa-xmark'></i></button>" + 
+            "</form>" + 
             "</main>";
 
         // Now append the temporary input field for new category in the categories-panel
@@ -78,8 +80,19 @@ function push() {
             `<div class='extra-category' id='${storeID}'>` + 
             `<input type='radio' id='${storeID}' name='category' value='${categoryTitle.split(" ").join("-").toLowerCase()}'></input>` + 
             `<label for='${storeID}' class="category-label font">${categoryTitle}</label>` +
-            `<button class='remove-category' id='removeCategory' onclick=''><i class='icon fa-solid fa-xmark'></i></button>` + 
+            `<form method='POST' id='newAddedCategoryForm'>` +
+            `<button type='submit' class='remove-category' id='removeCategory' onclick=''><i class='icon fa-solid fa-xmark'></i></button>` +
+            `</form>` +
             `</div>`;
+
+        $.ajax({
+            url: '/addcategory',
+            type: 'POST',
+            data: {
+                category: categoryTitle,
+                id: storeID
+            }
+        });
 
         // Remove the temporary input box for new category
         $('.categories-panel .temp-input-box').remove();
@@ -94,7 +107,7 @@ function push() {
         makeNewActive(storeID);
 
         // Initialize the add-icon button
-        const addButton = "<button id='category-add' class='add-icon font' title='Add Category' onclick='inputCategory()'><i class='icon fa-solid fa-plus'></i></button>";
+        const addButton = "<button type='button' id='category-add' class='add-icon font' title='Add Category' onclick='inputCategory()'><i class='icon fa-solid fa-plus'></i></button>";
         // Get the length of the number of categories in categories-panel
         let categoryCount = $('.categories-panel').children('div').length;
         // Limit the number of categories to 4. Don't display the add-icon button if there are already 4 categories
@@ -108,7 +121,7 @@ function push() {
 function removeNew() {
 
     // Initialize the add-icon button
-    const addButton = "<button id='category-add' class='add-icon font' title='Add Category' onclick='inputCategory()'><i class='icon fa-solid fa-plus'></i></button>";
+    const addButton = "<button type='button' id='category-add' class='add-icon font' title='Add Category' onclick='inputCategory()'><i class='icon fa-solid fa-plus'></i></button>";
     // Get the length of the number of categories in categories-panel
     let categoryCount = $('.categories-panel').children('div').length;
     // Get the number of buttons in the categories-panel
@@ -126,15 +139,23 @@ function removeNew() {
 // Call this when already existing category is to be removed
 $(document).on('click', '#removeCategory', function () {
     // First get the ID of the category to be removed then pass it to the next function
-    removeAdded($(this).parent().attr('id'));
+    removeAdded($(this).parent().parent().attr('id'));
 });
 function removeAdded(blockToRemove) {
 
     // Initialize the add-icon button
-    const addButton = "<button id='category-add' class='add-icon font' title='Add Category' onclick='inputCategory()'><i class='icon fa-solid fa-plus'></i></button>";
+    const addButton = "<button type='button' id='category-add' class='add-icon font' title='Add Category' onclick='inputCategory()'><i class='icon fa-solid fa-plus'></i></button>";
     // Get the length of the number of categories in categories-panel and subtract 1 from it
     let categoryCount = $('.categories-panel').children('div').length - 1;
 
+    
+    $.ajax({
+        url: '/removecategory',
+        type: 'POST',
+        data: {
+            categoryToRemove: blockToRemove,
+        }
+    });
 
     // Remove the category fron the categories-panel and remove the task lists associated with that category from the task-panel
     if(categoryCount+1 > 2) {
