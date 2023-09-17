@@ -32,7 +32,9 @@
         <label for="work" class="category-label font">Work</label>
     </div>
 
+    <!-- If category list exist only then render its content -->
     <% if(locals.categoryList) { %>
+        <!-- Iterate through the Category list object and render them according to ID and Category name -->
         <% for (const [key, value] of Object.entries(categoryList)) { %>
             <div class="extra-category" id="<%= key %>">
                 <input type="radio" id="<%= key %>" name="category" value="<%= key %>">
@@ -46,7 +48,7 @@
         <% } %>
     <% } %>
 
-    <!-- Add New Category Button -->
+    <!-- Check if there are at most 2 categories and then add new category button if there are less -->
     <% if(Object.keys(categoryList).length != 2) { %>
         <button id="category-add" class="add-icon font" title="Add Category" onclick="inputCategory()"><i class="icon fa-solid fa-plus"></i></button>
     <% } %>

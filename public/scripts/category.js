@@ -85,6 +85,9 @@ function push() {
             `</form>` +
             `</div>`;
 
+        
+        // Send an AJAX request for every new category added (Send Category name and the ID associated with it)
+        // ID is sent so that category can be removed with the same ID(=blockToRemove)
         $.ajax({
             url: '/addcategory',
             type: 'POST',
@@ -149,6 +152,7 @@ function removeAdded(blockToRemove) {
     let categoryCount = $('.categories-panel').children('div').length - 1;
 
     
+    // Send an AJAX request for any category to be removed (Here blockToRemove is the ID associated with the category to be removed)
     $.ajax({
         url: '/removecategory',
         type: 'POST',
